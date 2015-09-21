@@ -1,0 +1,30 @@
+﻿
+<h2>Twoje wydarzenia z facebooka</h2>
+
+
+
+
+
+<h2>Utwórz nowe wydarzenie</h2>
+@using (Html.BeginForm())
+{
+    <label for="">Start:</label><br />
+    <label for="">YYYY:</label>
+        <input type="number" name="SYear" min="@DateTime.Now.Year" />
+    <label for="">MM:</label>
+        <input type="number" name="SMonth" min="1" max="12" />
+    <label for="">DD:</label>
+        <input type="number" name="SDay" min="1" max="31"/>
+        <br />
+    <label for="">Title:</label><br />
+        <input type="text" name="Title" />
+        <br />
+    <label for="">Description:</label><br />
+        <input type="text" name="Description" />
+        <br />
+    <input type="submit" name="submit" value="Stwórz" />
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

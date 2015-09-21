@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>TAI facebook events</h1>
+    <p class="lead">Projekt zaliczeniowy Technlogii Aplikacji Internetowych</p>
+    <p class="lead">Grzegorz Najderek</p>
+    <p><a href="http://www.google.pl" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+</div>
+
+<br />
+
+<div class="jumbotron">
+    <h2>@Html.ActionLink("Events", "Index", "Event")</h2>
+    <p>Aby kontynuować, musisz być zalogowany. Możesz stworzyć konto na tej stronie, ale jeśli chcesz mieć możliwość importowania twoich wydarzeń z facebooka oraz publikowania notatek podsumowujących, musisz sie zalogować kontem z facebooka.</p>
+</div>
+
+    <div class="row">
+        <p>identity:</p>
+        <h3>@ViewBag.identity</h3>
+        <p>auth type:</p>
+        <h3>@ViewBag.authType</h3>
+        <p>cookies:</p>
+        @foreach (var c in ViewBag.cookies)
+        {<p>@c</p>}
+
+    </div>
+
+    @if (Request.IsAuthenticated)
+    {
+
+    }
+    else
+    {
+
+    }

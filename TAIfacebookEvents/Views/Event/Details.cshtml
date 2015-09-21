@@ -1,0 +1,37 @@
+﻿@model IEnumerable<TAIfacebookEvents.Models.Event>
+@{var e = Model.First(); }
+
+<div class="jumbotron">
+    <h1>@e.Title</h1>
+    <h5>@e.Start.ToShortDateString()</h5>
+
+    <h4>@e.Description</h4>
+</div>
+
+<h4> Komentarze</h4>
+<table class="table-bordered" >
+    <tr>
+        <td>&nbsp;&nbsp;&nbsp; Data &nbsp;&nbsp;&nbsp;</td>
+        <td>&nbsp;&nbsp;&nbsp; Użytkownik &nbsp;&nbsp;&nbsp;</td>
+        <td> &nbsp;&nbsp;Komentarz &nbsp; </td>
+    </tr>
+@foreach (var c in e.Comments)
+{
+    <tr>
+        <td> @c.Date.ToShortDateString() </td>
+        <td> @c.User </td>
+        <td> @c.Content </td>
+    </tr>
+}
+
+</table>
+
+<h4>Dodaj komentarz:</h4>
+@using (Html.BeginForm("Comment", "Event", FormMethod.Post))
+{
+    <input type="hidden" name="Id" value="@e.ID" />
+    <input type="text" name="Content"  />
+
+    <input type="submit" name="submit" value="Wyślij komentarz" />
+}
+

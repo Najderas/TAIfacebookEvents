@@ -1,0 +1,23 @@
+﻿@model IEnumerable<TAIfacebookEvents.Models.Event>
+<h2>Wydarzenia</h2>
+<div>
+    <table cellspacing="90" cellpadding="100" border="1">
+        <tr>
+            <td> Tytuł </td>
+            <td> Opis</td>
+            <td> Twórca </td>
+        </tr>
+        @foreach (var c in Model)
+        {
+            <tr>
+                <td> @c.Title </td>
+                <td> @c.Description </td>
+                <td> @c.Owner </td>
+                <td>@Html.ActionLink("Więcej", "Details", new { id = @c.ID })</td>
+            </tr>
+        }
+    </table>
+    <br />
+    @Html.ActionLink("Create event", "Create", "Event")
+</div>
+

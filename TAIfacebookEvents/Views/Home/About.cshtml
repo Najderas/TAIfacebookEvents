@@ -1,0 +1,42 @@
+﻿@model IEnumerable <TAIfacebookEvents.Models.ExtPropertyViewModel>
+
+@{
+    ViewBag.Title = "About";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+<br />
+<p>token: </p>
+<p>@ViewBag.Token</p>
+<br />
+<p>friends: </p>
+<p>@ViewBag.Friends</p>
+<p>friends count: @ViewBag.FriendsCount</p>
+@foreach (var friend in ViewBag.Friends)
+{
+    <p>friend.Id    @friend.Name</p>
+}
+<br />
+<p>me: </p>
+<p>@ViewBag.Me</p>
+<br />
+
+<h3>Identity Claims</h3>
+<table>
+    <tr>
+        <td>Issuer</td>
+        <td>Type</td>
+        <td>Value</td>
+    </tr>
+    @foreach (var claim in Model)
+    {
+        <tr>
+            <td>@claim.Issuer</td>
+            <td>@claim.Type</td>
+            <td>@claim.Value</td>
+        </tr>
+    }
+</table>
+
+@*@Html.Action("ExternalUserPropertiesList", "Account")*@
