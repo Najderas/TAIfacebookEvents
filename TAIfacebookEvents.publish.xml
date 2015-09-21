@@ -1,0 +1,9 @@
+<publishData>
+  <publishProfile
+    publishUrl="https://najderas-001-site1.smarterasp.net:8172/msdeploy.axd"
+    msdeploySite="najderas-001-site1"
+    destinationAppUrl="http://najderas-001-site1.smarterasp.net/"
+    profileName="Default Settings"
+    publishMethod="MSDeploy"
+    userName="ifc\najderas-001" />
+</publishData>
