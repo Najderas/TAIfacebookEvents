@@ -28,20 +28,18 @@ namespace TAIfacebookEvents.Models
         public static void createdata()
         {
             Event e;
-            e = new Event(new DateTime(2016, 2, 16), "wybuch bomby", "niszczymy WTC", "Allah");
-            e.AddComment("abdul", "ja sie wysadzam");
-            e.AddComment("ahmed", "allah akbar");
+            e = new Event(new DateTime(2016, 2, 16), "Protest Stowarzyszenia Wolnych Borówek", "Spotkajmy sie w warszawskim metrze. Niech każdy podróżny wie, że jesteśmy za legalizacją chodowli Borówek Hamerykańskich", "GreenPeach@greenTree.com");
+            e.AddComment("seba@osiedle.pl", "wezmę plecak kanapek");
+            e.AddComment("abdul@uchodzcy.eu", "to ja też wezmę plecak");
             Events.Add(e);
 
-            e = new Event(new DateTime(2016, 3, 16), "wybuch bomby2", "niszczymy WTC2", "Allah");
-            e.AddComment("abdul", "ja juz sie wysadzalem");
-            e.AddComment("ahmed", "to ja teraz");
+            e = new Event(new DateTime(2016, 2, 16), "Wybuch bomby", "Terroryzujemy Warszawskie metro. Potrzebujemy chetnych zamachowców samobójców.", "Allah@jihad.org");
+            e.AddComment("abdul@uchodzcy.eu", "ja sie wysadzam");
+            e.AddComment("ahmed@isis.isis", "To ja tez. Allah akbar!");
             Events.Add(e);
-
-            e = new Event(new DateTime(2016, 4, 16), "wybuch bomby3", "niszczymy WTC3", "Allah");
-            e.AddComment("abdul", "ja juz sie wysadzalem");
-            e.AddComment("ahmed", "ja tysz");
-            e.AddComment("mohammed", "tyraz jo");
+            
+            e = new Event(new DateTime(2016, 4, 16), "Święto Gumowej Kaczuszki", "Wszyscy celebrujmy święte prawo do rozmowy z Gumową Kaczuszką.", "cmd@bash.io");
+            e.AddComment("admin@admin.pl", "juhu!!");
             Events.Add(e);
         }
     }

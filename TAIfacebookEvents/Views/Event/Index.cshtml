@@ -1,8 +1,12 @@
 ﻿@model IEnumerable<TAIfacebookEvents.Models.Event>
+@{
+    ViewBag.Title = "Events";
+}
 <h2>Wydarzenia</h2>
 <div>
     <table cellspacing="90" cellpadding="100" border="1">
         <tr>
+            <td> Data </td>
             <td> Tytuł </td>
             <td> Opis</td>
             <td> Twórca </td>
@@ -10,6 +14,7 @@
         @foreach (var c in Model)
         {
             <tr>
+                <td> @c.Start.ToShortDateString() </td>
                 <td> @c.Title </td>
                 <td> @c.Description </td>
                 <td> @c.Owner </td>

@@ -49,28 +49,32 @@ namespace TAIfacebookEvents.Controllers
             try
             {
                 var access_token = HttpContext.GetOwinContext().Authentication.User.Claims.Where(c => c.Type == "FacebookAccessToken").First().Value;
-                
+                ViewBag.Token = access_token;
+
                 var fb = new FacebookClient(access_token);
 
-                var friendListData = fb.Get("/me/friends");
-                JObject friendListJson = JObject.Parse(friendListData.ToString());
-
-                List<FbUser> fbUsers = new List<FbUser>();
-                foreach (var friend in friendListJson["data"].Children())
-                {
-                    FbUser fbUser = new FbUser();
-                    fbUser.Id = friend["id"].ToString().Replace("\"", "");
-                    fbUser.Name = friend["name"].ToString().Replace("\"", "");
-                    fbUsers.Add(fbUser);
-                }
-
-                ViewBag.Friends = fbUsers;
-                ViewBag.FriendsCount = fbUsers.Count;
+                //var friendListData = fb.Get("/me/friends");
+                //JObject friendListJson = JObject.Parse(friendListData.ToString());
+                //List<FbUser> fbUsers = new List<FbUser>();
+                //foreach (var friend in friendListJson["data"].Children())
+                //{
+                //    FbUser fbUser = new FbUser();
+                //    fbUser.Id = friend["id"].ToString().Replace("\"", "");
+                //    fbUser.Name = friend["name"].ToString().Replace("\"", "");
+                //    fbUsers.Add(fbUser);
+                //}
+                //ViewBag.Friends = fbUsers;
+                //ViewBag.FriendsCount = fbUsers.Count;
 
                 string ans = fb.Get("me").ToString();
                 ViewBag.Me = ans;
+                string ans2 = fb.Get("me/permissions").ToString();
+                ViewBag.Permissions = ans2;
+                
+                string ans4 = fb.Get("me/friends", new { fields = new[] { "name, id" } }).ToString();
+                ViewBag.Friends = ans4;
 
-                ViewBag.Token = access_token;
+
                 return View(claimlist.ToList<ExtPropertyViewModel>());
             }
             catch

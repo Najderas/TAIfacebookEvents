@@ -10,19 +10,25 @@
 <p>token: </p>
 <p>@ViewBag.Token</p>
 <br />
-<p>friends: </p>
+@*<p>friends: </p>
 <p>@ViewBag.Friends</p>
 <p>friends count: @ViewBag.FriendsCount</p>
 @foreach (var friend in ViewBag.Friends)
 {
     <p>friend.Id    @friend.Name</p>
 }
-<br />
+<br />*@
 <p>me: </p>
 <p>@ViewBag.Me</p>
 <br />
+<p>permissions: </p>
+<p>@ViewBag.Permissions</p>
+<br />
+<p>friends: </p>
+<p>@ViewBag.Friends</p>
+<br />
 
-<h3>Identity Claims</h3>
+@*<h3>Identity Claims</h3>
 <table>
     <tr>
         <td>Issuer</td>
@@ -37,6 +43,6 @@
             <td>@claim.Value</td>
         </tr>
     }
-</table>
+</table>*@
 
 @*@Html.Action("ExternalUserPropertiesList", "Account")*@

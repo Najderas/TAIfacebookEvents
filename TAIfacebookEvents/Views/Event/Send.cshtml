@@ -1,4 +1,19 @@
-﻿
-<h2>@ViewBag.Message</h2>
+﻿@{
+    ViewBag.Title = "Send to Fb";
+}
+@*<h2>@ViewBag.Message</h2>*@
 
-<p>send event to wall</p>
+<h2>Wyślij notatkę o zdarzeniu na Facebooka </h2>
+<h5>(musisz być zalogowany przez facebooka)</h5>
+<h3>Ta wiadomośc zostanie wysłana na twojego Facebooka:</h3>
+@using (Html.BeginForm())
+{
+    <label>@ViewBag.Message</label><br />
+    <input type="hidden" name="message" value="@ViewBag.Message" />
+    <input type="hidden" name="id" value="@ViewBag.Id" />
+    <br />
+    @*<label >Description:</label><br />
+    <input type="text" name="Description" />
+    <br />*@
+    <input type="submit" name="submit" value="Stwórz" />
+}

@@ -1,9 +1,11 @@
-﻿
-<h2>Twoje wydarzenia z facebooka</h2>
+﻿@{
+    ViewBag.Title = "Create event";
+}
 
-
-
-
+@if (ViewBag.Message != "")
+{
+    <h2>@ViewBag.Message</h2>
+}
 
 <h2>Utwórz nowe wydarzenie</h2>
 @using (Html.BeginForm())

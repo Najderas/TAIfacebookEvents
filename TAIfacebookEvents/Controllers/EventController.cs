@@ -1,4 +1,5 @@
 ﻿using Facebook;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,8 +44,29 @@ namespace TAIfacebookEvents.Controllers
         // GET: Event/Create
         public ActionResult Create()
         {
-            // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            // TODO: import user events from facebook, attach to view
+            try {
+                //string myAccessToken = HttpContext.GetOwinContext().Authentication.User.Claims.Where(c => c.Type == "FacebookAccessToken").First().Value;
+                //FacebookClient client = new FacebookClient(myAccessToken);
+
+                //var friendListData = client.Get("/me/friends");
+                //JObject friendListJson = JObject.Parse(friendListData.ToString());
+
+                //List<FbUser> fbUsers = new List<FbUser>();
+                //foreach (var friend in friendListJson["data"].Children())
+                //{
+                //    FbUser fbUser = new FbUser();
+                //    fbUser.Id = friend["id"].ToString().Replace("\"", "");
+                //    fbUser.Name = friend["name"].ToString().Replace("\"", "");
+                //    fbUsers.Add(fbUser);
+                //}
+                ViewBag.Message = "";
+                return View();
+            }
+
+        catch
+            {
+                ViewBag.Message = "Nie mozna pobrać wydarzeń z Facebooka";
+            }
             return View();
         }
 
@@ -59,9 +81,10 @@ namespace TAIfacebookEvents.Controllers
                 int SDay = int.Parse(collection["SDay"]);
                 //ViewData["Title"] = collection["Title"];
                 //ViewData["Description"] = collection["Description"];
+                string user = User.Identity.Name;
 
                 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! user???
-                Event ev = new Event(new DateTime(SYear, SMonth, SDay), collection["Title"], collection["Description"], "BABA JAGA");
+                Event ev = new Event(new DateTime(SYear, SMonth, SDay ), collection["Title"], collection["Description"], user);
                 EventProvider.Events.Add(ev);
                 return RedirectToAction("Index");
             }
@@ -78,7 +101,7 @@ namespace TAIfacebookEvents.Controllers
             try
             {
                 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                string user = "Baba jaga";
+                string user = User.Identity.Name;
                 int i = int.Parse(collection["Id"]);
                 string content = collection["Content"];
                 Event ev = EventProvider.getEvent(i).First();
@@ -95,7 +118,15 @@ namespace TAIfacebookEvents.Controllers
         // GET: Event/Send
         public ActionResult Send(int id)
         {
-            ViewBag.Message = "Olaboga";        // !!!!!!!!!!!!!!!!!!!!!!
+            ViewBag.Id = id;
+            string message = "";
+            var ev = EventProvider.getEvent(id).First();
+            message = "Wydarzenie \"" + ev.Title + "\" odbędzie się dnia " + ev.Start.ToShortDateString() + " o godzinie " + ev.Start.ToLongTimeString()+ "." + Environment.NewLine + "Opis: " + ev.Description + Environment.NewLine + "Komentarze:\n";
+            foreach (var kom in ev.Comments)
+            {
+                message += kom.User + ": " + kom.Content +Environment.NewLine;
+            }
+            ViewBag.Message = message;
 
             try
             {
@@ -116,20 +147,15 @@ namespace TAIfacebookEvents.Controllers
         {
             try
             {
-                // TODO: Add insert logic here
-                try {
-                    var access_token = HttpContext.GetOwinContext().Authentication.User.Claims.Where(c => c.Type == "FacebookAccessToken").First().Value;
-                }
-                catch
-                {
-                    return RedirectToAction("Login");
-                }
-
-                return RedirectToAction("Index");
+                var access_token = HttpContext.GetOwinContext().Authentication.User.Claims.Where(c => c.Type == "FacebookAccessToken").First().Value;
+                string message = collection["message"];
+                PostToPage(message, access_token);
+                int id = Int32.Parse( collection["id"]);
+                return RedirectToAction("Details", new { id = id });
             }
             catch
             {
-                return View();
+                return RedirectToAction("Index");
             }
         }
 
@@ -138,7 +164,7 @@ namespace TAIfacebookEvents.Controllers
             var fb = new FacebookClient(pageAccessToken);
             var argList = new Dictionary<string, object>();
             argList["message"] = message;
-            fb.Post("feed", argList);
+            fb.Post("me/feed", argList);
         }
 
     }

@@ -71,6 +71,10 @@ namespace TAIfacebookEvents
 
             };
             facebookOptions.Scope.Add("email");
+            facebookOptions.Scope.Add("user_friends");
+            facebookOptions.Scope.Add("user_actions.video"); 
+            facebookOptions.Scope.Add("user_events");
+            facebookOptions.Scope.Add("publish_actions");
             app.UseFacebookAuthentication(facebookOptions);
 
             //app.UseFacebookAuthentication(
